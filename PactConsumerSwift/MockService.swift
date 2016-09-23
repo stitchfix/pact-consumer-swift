@@ -1,31 +1,24 @@
 import Foundation
-import Alamofire
-import BrightFutures
-import Result
 import Nimble
 
-@objc open class MockService : NSObject {
-  fileprivate let provider: String
-  fileprivate let consumer: String
-  fileprivate let pactVerificationService: PactVerificationService
+@objc
+open class MockService: NSObject {
+  fileprivate let pact: Pact
+  fileprivate let mockServer: NativeMockServer
   fileprivate var interactions: [Interaction] = []
 
   open var baseUrl: String {
-    get {
-        return pactVerificationService.baseUrl
-    }
+    return "http://localhost:\(mockServer.port)"
   }
 
-  public init(provider: String, consumer: String, pactVerificationService: PactVerificationService) {
-    self.provider = provider
-    self.consumer = consumer
-    
-    self.pactVerificationService = pactVerificationService
+  public init(provider: String, consumer: String, mockServer: NativeMockServer) {
+    self.pact = Pact(provider: provider, consumer: consumer)
+    self.mockServer = mockServer
   }
 
-  @objc(initWithProvider: consumer:)
+  @objc(initWithProvider: consumer: )
   public convenience init(provider: String, consumer: String) {
-    self.init(provider: provider, consumer: consumer, pactVerificationService: PactVerificationService())
+    self.init(provider: provider, consumer: consumer, mockServer: NativeMockServer())
   }
 
   open func given(_ providerState: String) -> Interaction {
@@ -41,7 +34,6 @@ import Nimble
     return interaction
   }
 
-
   @objc(run:)
   open func objcRun(_ testFunction: @escaping (_ testComplete: () -> Void) -> Void) -> Void {
     self.run(nil, line: nil, timeout: 30, testFunction: testFunction)
@@ -52,29 +44,33 @@ import Nimble
     self.run(nil, line: nil, timeout: timeout, testFunction: testFunction)
   }
 
-  open func run(_ file: String? = #file, line: UInt? = #line, timeout: TimeInterval = 30, testFunction: @escaping (_ testComplete: @escaping () -> Void) -> Void) -> Void {
+  open func run(_ file: String? = #file, line: UInt? = #line,
+                timeout: TimeInterval = 30,
+                testFunction: @escaping (_
+                  testComplete: @escaping () -> Void) -> Void) -> Void {
     var complete = false
-    self.pactVerificationService.setup(self.interactions).onSuccess { result in
-      testFunction { () in
-        self.pactVerificationService.verify(provider: self.provider, consumer: self.consumer).onSuccess { result in
-          complete = true
-        }.onFailure { error in
-          if let fileName = file, let lineNumber = line {
-            fail("Error verifying pact: \(error.localizedDescription)", file: fileName, line: lineNumber)
-          } else {
-            fail("Error verifying pact: \(error.localizedDescription)")
-          }
-        }
-        return
+    pact.withInteractions(interactions)
+    mockServer.withPact(pact)
+    testFunction { () in
+      complete = true
+      if !self.mockServer.matched() {
+        print("Actual request did not match expectations. Mismatches: ")
+        print(self.mockServer.mismatches() ?? "error returning matches")
+        fail("Actual request did not match expectations. Mismatches: \(self.mockServer.mismatches())")
       }
-      return
-    }.onFailure { error in
-      fail("Error setting up pact: \(error.localizedDescription)")
+      self.mockServer.writeFile()
+      self.mockServer.cleanup()
     }
     if let fileName = file, let lineNumber = line {
-      expect(fileName, line: lineNumber, expression: { complete} ).toEventually(beTrue())
+      expect(fileName, line: lineNumber, expression: { complete }).toEventually(beTrue(),
+        timeout: 10,
+        description: "Expected requests were never received. " +
+          "Make sure the testComplete() fuction is called at the end of your test.")
     } else {
-      expect(complete).toEventually(beTrue(), timeout: timeout)
+      expect(complete).toEventually(beTrue(),
+        timeout: 10,
+        description: "Expected requests were never received. " +
+          "Make sure the testComplete() fuction is called at the end of your test.")
     }
   }
 }

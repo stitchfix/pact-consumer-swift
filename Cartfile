@@ -1,3 +1,5 @@
 github "Alamofire/Alamofire" ~> 4.0
 github "Thomvis/BrightFutures" ~> 5.0
 github "Quick/Nimble" ~> 5.0
+github "SwiftyJSON/SwiftyJSON" ~> 3.1
+github "andrewspinks/PactMockServer" "master"
