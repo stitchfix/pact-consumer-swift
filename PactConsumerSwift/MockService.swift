@@ -56,21 +56,30 @@ open class MockService: NSObject {
       if !self.mockServer.matched() {
         print("Actual request did not match expectations. Mismatches: ")
         print(self.mockServer.mismatches() ?? "error returning matches")
-        fail("Actual request did not match expectations. Mismatches: \(self.mockServer.mismatches())")
+        self.failWithLocation("Actual request did not match expectations. Mismatches: \(self.mockServer.mismatches())", file: file, line: line)
       }
       self.mockServer.writeFile()
       self.mockServer.cleanup()
     }
     if let fileName = file, let lineNumber = line {
       expect(fileName, line: lineNumber, expression: { complete }).toEventually(beTrue(),
-        timeout: 10,
+        timeout: timeout,
         description: "Expected requests were never received. " +
           "Make sure the testComplete() fuction is called at the end of your test.")
     } else {
       expect(complete).toEventually(beTrue(),
-        timeout: 10,
+        timeout: timeout,
         description: "Expected requests were never received. " +
           "Make sure the testComplete() fuction is called at the end of your test.")
+    }
+  }
+
+
+  func failWithLocation(_ message: String, file: String?, line: UInt?) {
+    if let fileName = file, let lineNumber = line {
+      fail(message, file: fileName, line: lineNumber)
+    } else {
+      fail(message)
     }
   }
 }

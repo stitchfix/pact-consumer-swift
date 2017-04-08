@@ -36,6 +36,8 @@
 		A1E04EA51A809828006721F8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E04E961A80971A006721F8 /* Alamofire.framework */; };
 		A1E04EA81A809828006721F8 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E04EA61A809828006721F8 /* Quick.framework */; };
 		A1E04EA91A809828006721F8 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E04EA71A809828006721F8 /* Nimble.framework */; };
+		A1F4A2AF1E98A905004EBA78 /* PactSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F941DA2006F00CEBDA4 /* PactSpecs.swift */; };
+		A1F4A2B01E98A920004EBA78 /* AnimalServiceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F901DA2006F00CEBDA4 /* AnimalServiceClient.swift */; };
 		A1F6BA411D13B365008BC56C /* PactMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17A5D451D1114AC00C4BE1F /* PactMockServer.framework */; };
 /* End PBXBuildFile section */
 
@@ -415,9 +417,11 @@
 				A1291F8D1DA2005F00CEBDA4 /* MatcherSpec.swift in Sources */,
 				A16FD2C41E061DED00CEDFD6 /* MockService.swift in Sources */,
 				2DC1877FEC993462E71C7F52 /* PactBodyBuilder.swift in Sources */,
+				A1F4A2AF1E98A905004EBA78 /* PactSpecs.swift in Sources */,
 				A13FE4D81DA2348C0067F984 /* PactBodyBuilderSpec.swift in Sources */,
 				A16FD2C11E061C8E00CEDFD6 /* Pact.swift in Sources */,
 				A16FD2C21E061DDF00CEDFD6 /* Interaction.swift in Sources */,
+				A1F4A2B01E98A920004EBA78 /* AnimalServiceClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

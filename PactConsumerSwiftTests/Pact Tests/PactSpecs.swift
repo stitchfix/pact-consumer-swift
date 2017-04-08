@@ -17,20 +17,18 @@ class PactSwiftSpec: QuickSpec {
       it("gets an alligator") {
         animalMockService!.given("an alligator exists")
                           .uponReceiving("a request for an alligator")
-                          .withRequest(.GET, path: "/alligator")
+                          .withRequest(.GET, path: "/alligators")
                           .willRespondWith(200,
                                            headers: ["Content-Type": "application/json"],
                                            body: [ ["name": "Mary", "type": "alligator"] ])
 
         //Run the tests
-
-
-        animalMockService!.run { (testComplete) -> Void in
-          animalServiceClient!.getAlligator(1234, success: { (alligator) in
-              expect(alligator.name).to(equal("Mary"))
-              testComplete()
-            }, failure: { (error) in
-              testComplete()
+        animalMockService!.run(timeout: 10000) { (testComplete) -> Void in
+          animalServiceClient!.getAlligators( { (alligators) in
+            expect(alligators[0].name).to(equal("Mary"))
+            testComplete()
+          }, failure: { (error) in
+            testComplete()
           })
         }
       }
