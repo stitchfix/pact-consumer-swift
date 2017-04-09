@@ -1,6 +1,7 @@
 import Quick
 import Nimble
 import PactConsumerSwift
+import SwiftyJSON
 
 class InteractionSpec: QuickSpec {
   override func spec() {
@@ -67,10 +68,32 @@ class InteractionSpec: QuickSpec {
         it("returns expected response with specific headers and body") {
           var payload = interaction!.willRespondWith(statusCode, headers: headers, body: body).payload()
 
-          var request = payload["response"] as! [String: AnyObject]
-          expect(request["status"] as! Int?) == statusCode
-          expect(request["headers"] as! [String: String]?).to(equal(headers))
-          expect(request["body"] as! String?).to(equal(body))
+          var response = payload["response"] as! [String: AnyObject]
+          expect(response["status"] as! Int?) == statusCode
+          expect(response["headers"] as! [String: String]?).to(equal(headers))
+          expect(response["body"] as! String?).to(equal(body))
+        }
+
+        context("body with matcher") {
+          let body  = [
+            "type": "alligator",
+            "legs": Matcher.somethingLike(4)] as [String : Any]
+          var response : [String: Any]?
+
+          beforeEach {
+            interaction!.willRespondWith(statusCode, headers: headers, body: body)
+            response = interaction!.payload()["response"] as? [String: Any]
+          }
+
+          it("builds matching rules") {
+            let matchingRules = JSON(response!["matchingRules"]!)
+            expect(matchingRules).to(equal(["$.body.legs": ["match": "type"]]))
+          }
+
+          it("adds default value to body") {
+            let generatedBody = JSON(response!["body"]!)
+            expect(generatedBody).to(equal(["type": "alligator", "legs": 4]))
+          }
         }
       }
     }

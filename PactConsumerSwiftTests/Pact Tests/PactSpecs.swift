@@ -33,6 +33,31 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
+      it("Can match legs based on type") {
+        animalMockService!.given("an alligator exists with legs")
+          .uponReceiving("a request for alligator with legs")
+          .withRequest(.GET, path: "/alligators/1")
+          .willRespondWith(
+            200,
+            headers: ["Content-Type": "application/json"],
+            body: [
+              "name": "Mary",
+              "type": "alligator",
+              "legs": Matcher.somethingLike(4)
+            ])
+
+        //Run the tests
+        animalMockService!.run { (testComplete) -> Void in
+          animalServiceClient!.getAlligator(1, success: { (alligator) in
+            expect(alligator.legs).to(equal(4))
+            testComplete()
+          }, failure: { (error) in
+            expect(true).to(equal(false))
+            testComplete()
+          })
+        }
+      }
+
 /*
       it("gets an alligator with path matcher") {
         let pathMatcher = Matcher.term(matcher: "^\\/alligators\\/[0-9]{4}",

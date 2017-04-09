@@ -53,7 +53,9 @@ open class Interaction: NSObject {
       response["headers"] = headersValue
     }
     if let bodyValue = body {
-      response["body"] = bodyValue
+      let pactBody = PactBodyBuilder.init(body: bodyValue).build()
+      response["body"] = pactBody.body
+      response["matchingRules"] = pactBody.matchingRules
     }
     return self
   }
