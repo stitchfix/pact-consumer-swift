@@ -1,5 +1,6 @@
 import SwiftyJSON
 
+
 typealias JSONEntry = [String: Any]
 typealias JSONArray = [Any]
 typealias PathWithMatchingRule = [String: [String: String]]
@@ -40,7 +41,7 @@ class PactBodyBuilder {
     for (index, arrayValue) in array.enumerated() {
       let processedSubElement = processElement(path: "\(path)[\(index)]", element: arrayValue)
       processedArray.append(processedSubElement.0)
-      matches.merge(dictionary: processedSubElement.1)
+      matches = matches.merge(dictionary: processedSubElement.1)
     }
     return (processedArray, matches)
   }
@@ -51,7 +52,7 @@ class PactBodyBuilder {
     for key in dictionary.keys {
       if let dictionaryValue = dictionary[key] {
         let processedSubElement = processElement(path: "\(path).\(key)", element: dictionaryValue)
-        matches.merge(dictionary: processedSubElement.1)
+        matches = matches.merge(dictionary: processedSubElement.1)
         processedDictionary[key] = processedSubElement.0
       }
     }
@@ -64,11 +65,3 @@ struct PactBody {
   var matchingRules: PathWithMatchingRule
 }
 
-extension Dictionary {
-  mutating func merge(
-    dictionary: Dictionary<Key, Value>) {
-    for (key, value) in dictionary {
-      self[key] = value
-    }
-  }
-}

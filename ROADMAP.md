@@ -1,6 +1,12 @@
 # ROADMAP to Native
 
 - Cleanup MockServer repo and build
-- Body matchers
+- ~~Response Body matchers~~
+- ~~Request Body matchers~~
 - Path matchers
 - Header matchers
+
+Matchers:
+- ~~Type~~
+- Term
+- ArrayLike

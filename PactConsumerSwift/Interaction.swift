@@ -6,61 +6,67 @@ public enum PactHTTPMethod: Int {
 }
 
 @objc
-open class Interaction: NSObject {
-  open var providerState: String? = nil
-  open var testDescription: String = ""
-  open var request: [String: Any] = [:]
-  open var response: [String: Any] = [:]
+public class Interaction: NSObject {
+  typealias HttpMessage = [String: Any]
+  var providerState: String? = nil
+  var testDescription: String = ""
+  var request: HttpMessage = [:]
+  var response: HttpMessage = [:]
 
   @discardableResult
-  open func given(_ providerState: String) -> Interaction {
+  public func given(_ providerState: String) -> Interaction {
     self.providerState = providerState
     return self
   }
 
   @discardableResult
-  open func uponReceiving(_ testDescription: String) -> Interaction {
+  public func uponReceiving(_ testDescription: String) -> Interaction {
     self.testDescription = testDescription
     return self
   }
 
   @objc(withRequestHTTPMethod: path: query: headers: body:)
   @discardableResult
-  open func withRequest(_ method: PactHTTPMethod,
-                        path: Any, query: [String: Any]? = nil,
+  public func withRequest(_ method: PactHTTPMethod,
+                        path: Any,
+                        query: [String: Any]? = nil,
                         headers: [String: String]? = nil,
                         body: Any? = nil) -> Interaction {
     request = ["method": httpMethod(method), "path": path]
-    if let headersValue = headers {
-      request["headers"] = headersValue
-    }
-    if let bodyValue = body {
-      request["body"] = bodyValue
-    }
-    if let queryValue = query {
-      request["query"] = queryValue
-    }
+    request = applyValue(message: request, field: "headers", value: headers)
+    request = applyValue(message: request, field: "query", value: query)
+    request = applyBody(message: request, body: body)
     return self
   }
 
   @objc(willRespondWithHTTPStatus: headers: body:)
   @discardableResult
-  open func willRespondWith(_ status: Int,
+  public func willRespondWith(_ status: Int,
                             headers: [String: String]? = nil,
                             body: Any? = nil) -> Interaction {
     response = ["status": status]
-    if let headersValue = headers {
-      response["headers"] = headersValue
-    }
-    if let bodyValue = body {
-      let pactBody = PactBodyBuilder.init(body: bodyValue).build()
-      response["body"] = pactBody.body
-      response["matchingRules"] = pactBody.matchingRules
-    }
+    response = applyValue(message: response, field: "headers", value: headers)
+    response = applyBody(message: response, body: body)
     return self
   }
 
-  open func payload() -> [String: Any] {
+  private func applyValue(message: HttpMessage, field: String, value: Any?) -> HttpMessage {
+    if let value = value {
+      return message.merge(dictionary: [field: value]);
+    }
+    return message
+  }
+
+  private func applyBody(message: HttpMessage, body: Any?) -> HttpMessage {
+    if let bodyValue = body {
+      let pactBody = PactBodyBuilder.init(body: bodyValue).build()
+      return message.merge(dictionary: ["body" : pactBody.body,
+                             "matchingRules" : pactBody.matchingRules]);
+    }
+    return message
+  }
+
+  public func payload() -> [String: Any] {
     var payload: [String: Any] = ["description": testDescription, "request": request, "response": response ]
     if let providerState = providerState {
       payload["providerState"] = providerState
@@ -68,7 +74,7 @@ open class Interaction: NSObject {
     return payload
   }
 
-  fileprivate func httpMethod(_ method: PactHTTPMethod) -> String {
+  private func httpMethod(_ method: PactHTTPMethod) -> String {
     switch method {
       case .GET:
         return "get"

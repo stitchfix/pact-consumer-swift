@@ -58,6 +58,28 @@ class InteractionSpec: QuickSpec {
           expect(request["headers"] as! [String: String]?).to(beNil())
           expect(request["body"] as! String?).to(beNil())
         }
+
+        context("body with matcher") {
+          let body  = [
+                  "type": "alligator",
+                  "legs": Matcher.somethingLike(4)] as [String : Any]
+          var request : [String: Any]?
+
+          beforeEach {
+            interaction!.withRequest(method, path: path, headers: headers, body: body)
+            request = interaction!.payload()["request"] as? [String: Any]
+          }
+
+          it("builds matching rules") {
+            let matchingRules = JSON(request!["matchingRules"]!)
+            expect(matchingRules).to(equal(["$.body.legs": ["match": "type"]]))
+          }
+
+          it("adds default value to body") {
+            let generatedBody = JSON(request!["body"]!)
+            expect(generatedBody).to(equal(["type": "alligator", "legs": 4]))
+          }
+        }
       }
 
       context("response") {
