@@ -33,30 +33,31 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
-
-/*
       it("gets an alligator with path matcher") {
-        let pathMatcher = Matcher.term(matcher: "^\\/alligators\\/[0-9]{4}",
+        let pathMatcher = Matcher.term("^/alligators/[0-9]{4}",
                                   generate: "/alligators/1234")
 
         animalMockService!.given("an alligator exists")
                 .uponReceiving("a request for an alligator with path matcher")
-                .withRequest(method:.GET, path: pathMatcher)
-                .willRespondWith(status: 200,
-                                 headers: ["Content-Type": "application/json"],
-                                 body: ["name": "Mary", "type": "alligator"])
+                .withRequest(.GET, path: pathMatcher)
+                .willRespondWith(200,
+                  headers: ["Content-Type": "application/json"],
+                  body: ["name": "Mary", "type": "alligator"])
 
         //Run the tests
         animalMockService!.run { (testComplete) -> Void in
-          animalServiceClient!.getAlligator(1234, success: { (alligator) in
-                                               expect(alligator.name).to(equal("Mary"))
-                                               testComplete()
-                                             }, failure: { (error) in
-            testComplete()
-          })
+          animalServiceClient!.getAlligator(1234,
+            success: { (alligator) in
+               expect(alligator.name).to(equal("Mary"))
+               testComplete()
+            }, failure: { (error) in
+              testComplete()
+            }
+          )
         }
       }
 
+      /*
       describe("With query params") {
 
         it("should return animals living in water") {

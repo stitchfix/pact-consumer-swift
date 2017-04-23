@@ -12,7 +12,7 @@ class InteractionSpec: QuickSpec {
       it("it initialises the provider state") {
         expect(interaction?.given("some state").providerState).to(equal("some state"))
       }
-      
+
     }
 
     describe("json payload"){
@@ -38,6 +38,7 @@ class InteractionSpec: QuickSpec {
         let path = "/path"
         let headers = ["header": "value"]
         let body = "blah"
+        let regex = "^\\/resource\\/[0-9]*"
 
         it("returns expected request with specific headers and body") {
           var payload = interaction!.withRequest(method, path: path, headers: headers, body: body).payload()
@@ -59,6 +60,26 @@ class InteractionSpec: QuickSpec {
           expect(request["body"] as! String?).to(beNil())
         }
 
+        context("with path matcher") {
+          let path = Matcher.term(regex, generate: "/resource/1")
+          var request : [String: Any]?
+
+          beforeEach {
+            interaction!.withRequest(method, path: path, headers: headers, body: body)
+            request = interaction!.payload()["request"] as? [String: Any]
+          }
+
+          it("builds matching rules") {
+            let matchingRules = JSON(request!["matchingRules"]!)
+            expect(matchingRules).to(equal(["$.path": ["match": "regex", "regex": regex]]))
+          }
+
+          it("adds default value to path") {
+            let generatedPath = JSON(request!["path"]!)
+            expect(generatedPath).to(equal("/resource/1"))
+          }
+        }
+
         context("body with matcher") {
           let body  = [
                   "type": "alligator",
@@ -78,6 +99,21 @@ class InteractionSpec: QuickSpec {
           it("adds default value to body") {
             let generatedBody = JSON(request!["body"]!)
             expect(generatedBody).to(equal(["type": "alligator", "legs": 4]))
+          }
+
+          context("and path matcher") {
+            let path = Matcher.term(regex, generate: "/resource/1")
+
+            beforeEach {
+              interaction!.withRequest(method, path: path, headers: headers, body: body)
+              request = interaction!.payload()["request"] as? [String: Any]
+            }
+
+            it("includes both matching rules") {
+              let matchingRules = JSON(request!["matchingRules"]!)
+              expect(matchingRules["$.body.legs"]).to(equal(["match": "type"]))
+              expect(matchingRules["$.path"]).to(equal(["match": "regex", "regex": regex]))
+            }
           }
         }
       }

@@ -32,7 +32,8 @@ public class Interaction: NSObject {
                         query: [String: Any]? = nil,
                         headers: [String: String]? = nil,
                         body: Any? = nil) -> Interaction {
-    request = ["method": httpMethod(method), "path": path]
+    request = ["method": httpMethod(method)]
+    request = applyPath(message: request, path: path)
     request = applyValue(message: request, field: "headers", value: headers)
     request = applyValue(message: request, field: "query", value: query)
     request = applyBody(message: request, body: body)
@@ -57,13 +58,33 @@ public class Interaction: NSObject {
     return message
   }
 
+  private func applyPath(message: HttpMessage, path: Any) -> HttpMessage {
+    switch path {
+    case let matcher as MatchingRule:
+      return message.merge(dictionary: [
+        "path": matcher.value(),
+        "matchingRules": ["$.path": matcher.rule()]])
+    default:
+      return message.merge(dictionary:["path": path])
+    }
+  }
+
   private func applyBody(message: HttpMessage, body: Any?) -> HttpMessage {
     if let bodyValue = body {
       let pactBody = PactBodyBuilder.init(body: bodyValue).build()
       return message.merge(dictionary: ["body" : pactBody.body,
-                             "matchingRules" : pactBody.matchingRules]);
+                             "matchingRules" : matchingRules(message: message, matchingRules: pactBody.matchingRules)]);
     }
     return message
+  }
+
+  private func matchingRules(message: HttpMessage, matchingRules: PathWithMatchingRule) -> HttpMessage {
+    switch message["matchingRules"] {
+      case let existingMatchingRules as PathWithMatchingRule:
+        return existingMatchingRules.merge(dictionary: matchingRules)
+      default:
+        return matchingRules
+    }
   }
 
   public func payload() -> [String: Any] {
