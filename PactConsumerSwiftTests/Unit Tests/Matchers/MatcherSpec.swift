@@ -11,39 +11,30 @@ class MatcherSpec: QuickSpec {
       let placeholder = "1111222233334444"
       let subject = Matcher.term(regex, generate: placeholder)
 
-      it("sets the json_class") {
-        let className = subject["json_class"] as? String
-        expect(className).to(equal("Pact::Term"))
+      it("rule matches term and contains regex") {
+        expect(subject.rule()).to(equal(
+          ["match": "regex",
+          "regex": regex]
+        ))
       }
 
-      it("sets the regular expression to match against") {
-        let data = subject["data"] as? [String: AnyObject] 
-        let matcher = data?["matcher"] as? [String: AnyObject]
-        let matcherRegex = matcher?["s"] as! String
-
-        expect(matcherRegex).to(equal(regex))
-      }
-
-      it("sets the default value to return") {
-        let data = subject["data"] as? [String: AnyObject]
-        let generate = data?["generate"] as! String
-
-        expect(generate).to(equal(placeholder))
+      it("has the generator as value") {
+        let value = subject.value() as! String
+        expect(value).to(equal("1111222233334444"))
       }
     }
 
     describe("type matcher") {
-//      let subject = Matcher.somethingLike(1234)
-//
-//      it("sets the json_class") {
-//        let className = subject["json_class"] as? String
-//        expect(className).to(equal("Pact::SomethingLike"))
-//      }
-//
-//      it("sets the regular expressiont to match against") {
-//        let likeThis = subject["contents"] as? Int
-//        expect(likeThis).to(equal(1234))
-//      }
+      let subject = Matcher.somethingLike(1234)
+
+      it("has a type rule") {
+        expect(subject.rule()).to(equal(["match": "type"]))
+      }
+
+      it("has a value") {
+        let value = subject.value() as! Int
+        expect(value).to(equal(1234))
+      }
     }
 
     describe("eachLike matcher") {

@@ -33,30 +33,6 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
-      it("Can match legs based on type") {
-        animalMockService!.given("an alligator exists with legs")
-          .uponReceiving("a request for alligator with legs")
-          .withRequest(.GET, path: "/alligators/1")
-          .willRespondWith(
-            200,
-            headers: ["Content-Type": "application/json"],
-            body: [
-              "name": "Mary",
-              "type": "alligator",
-              "legs": Matcher.somethingLike(4)
-            ])
-
-        //Run the tests
-        animalMockService!.run { (testComplete) -> Void in
-          animalServiceClient!.getAlligator(1, success: { (alligator) in
-            expect(alligator.legs).to(equal(4))
-            testComplete()
-          }, failure: { (error) in
-            expect(true).to(equal(false))
-            testComplete()
-          })
-        }
-      }
 
 /*
       it("gets an alligator with path matcher") {
@@ -171,23 +147,46 @@ class PactSwiftSpec: QuickSpec {
             })
           }
         }
-      }
+      }*/
       
       describe("Matchers") {
-        it("Can match date based on regex") {
-          animalMockService!.given("an alligator exists with a birthdate")
-            .uponReceiving("a request for alligator with birthdate")
-            .withRequest(method:.GET, path: "/alligators/123")
+        it("Can match legs based on type") {
+          animalMockService!.given("an alligator exists with legs")
+            .uponReceiving("a request for alligator with legs")
+            .withRequest(.GET, path: "/alligators/1")
             .willRespondWith(
-              status: 200,
+              200,
               headers: ["Content-Type": "application/json"],
               body: [
                 "name": "Mary",
                 "type": "alligator",
-                "dateOfBirth": Matcher.term(
-                    matcher: "\\d{2}\\/\\d{2}\\/\\d{4}", 
-                    generate: "02/02/1999"
-                  )
+                "legs": Matcher.somethingLike(4)
+              ])
+
+          //Run the tests
+          animalMockService!.run { (testComplete) -> Void in
+            animalServiceClient!.getAlligator(1, success: { (alligator) in
+              expect(alligator.legs).to(equal(4))
+              testComplete()
+            }, failure: { (error) in
+              expect(true).to(equal(false))
+              testComplete()
+            })
+          }
+        }
+
+        it("Can match date based on regex") {
+          let matcher = Matcher.term( "\\d{2}\\/\\d{2}\\/\\d{4}", generate: "02/02/1999")
+          animalMockService!.given("an alligator exists with a birthdate")
+            .uponReceiving("a request for alligator with birthdate")
+            .withRequest(.GET, path: "/alligators/123")
+            .willRespondWith(
+              200,
+              headers: ["Content-Type": "application/json"],
+              body: [
+                "name": "Mary",
+                "type": "alligator",
+                "dateOfBirth": matcher
               ])
           
           //Run the tests
@@ -203,30 +202,7 @@ class PactSwiftSpec: QuickSpec {
           }
         }
 
-        it("Can match legs based on type") {
-          animalMockService!.given("an alligator exists with legs")
-            .uponReceiving("a request for alligator with legs")
-            .withRequest(method:.GET, path: "/alligators/1")
-            .willRespondWith(
-              status: 200,
-              headers: ["Content-Type": "application/json"],
-              body: [
-                "name": "Mary",
-                "type": "alligator",
-                "legs": Matcher.somethingLike(4)
-              ])
-          
-          //Run the tests
-          animalMockService!.run { (testComplete) -> Void in
-            animalServiceClient!.getAlligator(1, success: { (alligator) in
-                expect(alligator.legs).to(equal(4))
-                testComplete()
-              }, failure: { (error) in
-                expect(true).to(equal(false))
-                testComplete()
-            })
-          }
-        }
+        /*
 
         it("Can match based on flexible length array") {
           animalMockService!.given("multiple land based animals exist")
@@ -249,9 +225,8 @@ class PactSwiftSpec: QuickSpec {
               testComplete()
             })
           }
-        }
+        }*/
       }
-       */
     }
   }
 }

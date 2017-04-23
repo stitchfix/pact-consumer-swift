@@ -1,10 +1,11 @@
 import Foundation
 
 extension Dictionary {
-  mutating func merge(
-    dictionary: Dictionary<Key, Value>) {
+  public func merge(dictionary: [Key: Value]) -> [Key: Value] {
+    var newDictionary : [Key: Value] = self
     for (key, value) in dictionary {
-      self[key] = value
+      newDictionary[key] = value
     }
+    return newDictionary
   }
 }

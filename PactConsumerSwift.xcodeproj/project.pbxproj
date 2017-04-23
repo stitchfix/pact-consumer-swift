@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DC1805B6548E97135D07390 /* TermMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18B54DD1A0A6CF3D1CE8F /* TermMatcher.swift */; };
+		2DC181C8AEDCEF42C2FBA3AD /* TypeMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18A80051BF6B1C88BC3C2 /* TypeMatcher.swift */; };
+		2DC182267E2C70C25F9557B5 /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18BD54F0B5C326DB7B5E1 /* Matcher.swift */; };
+		2DC182C5AC46C3F72B314E4F /* MatchingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18515E80D1A5F72A1F565 /* MatchingRule.swift */; };
+		2DC18677562E77591FF400AE /* TypeMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18A80051BF6B1C88BC3C2 /* TypeMatcher.swift */; };
 		2DC186FAB9B8047A4CADFCB1 /* PactBodyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1805032A9858A94273468 /* PactBodyBuilder.swift */; };
 		2DC1877FEC993462E71C7F52 /* PactBodyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1805032A9858A94273468 /* PactBodyBuilder.swift */; };
-		2DC18CE75C65FEDED5B6B69D /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1855727137D1A61E22336 /* Matcher.swift */; };
+		2DC18D0B260222F1EF76CA2C /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18BD54F0B5C326DB7B5E1 /* Matcher.swift */; };
+		2DC18E6AE34CD6D445CBB3FD /* MatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC183FC32E22CC87C8DCA2F /* MatcherSpec.swift */; };
+		2DC18E9FC068BB77996046F9 /* TermMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18B54DD1A0A6CF3D1CE8F /* TermMatcher.swift */; };
 		A10AC5AE1A85EFCF00F4524C /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10AC5AD1A85EFCF00F4524C /* BrightFutures.framework */; };
 		A10AC5AF1A86105B00F4524C /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10AC5AD1A85EFCF00F4524C /* BrightFutures.framework */; };
 		A11F1A711A5C890D00DAB9CE /* PactConsumerSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = A11F1A701A5C890D00DAB9CE /* PactConsumerSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -17,14 +24,13 @@
 		A11F1AF01A5CF84600DAB9CE /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F1AEE1A5CF84600DAB9CE /* MockService.swift */; };
 		A11F1AF11A5CF84600DAB9CE /* Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F1AEF1A5CF84600DAB9CE /* Interaction.swift */; };
 		A1291F8C1DA2005F00CEBDA4 /* InteractionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F891DA2005F00CEBDA4 /* InteractionSpec.swift */; };
-		A1291F8D1DA2005F00CEBDA4 /* MatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F8A1DA2005F00CEBDA4 /* MatcherSpec.swift */; };
 		A1291F8E1DA2005F00CEBDA4 /* PactSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F8B1DA2005F00CEBDA4 /* PactSpec.swift */; };
 		A1291F961DA2006F00CEBDA4 /* OCAnimalServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A1291F921DA2006F00CEBDA4 /* OCAnimalServiceClient.m */; };
 		A13FE4D61DA231F90067F984 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13FE4D51DA231F90067F984 /* SwiftyJSON.framework */; };
 		A13FE4D81DA2348C0067F984 /* PactBodyBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FE4D71DA2348C0067F984 /* PactBodyBuilderSpec.swift */; };
+		A152E7181EAC74F8001D6C4A /* MatchingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18515E80D1A5F72A1F565 /* MatchingRule.swift */; };
 		A16FD2C11E061C8E00CEDFD6 /* Pact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A5D3F1D0A862F00C4BE1F /* Pact.swift */; };
 		A16FD2C21E061DDF00CEDFD6 /* Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F1AEF1A5CF84600DAB9CE /* Interaction.swift */; };
-		A16FD2C31E061DE600CEDFD6 /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1855727137D1A61E22336 /* Matcher.swift */; };
 		A16FD2C41E061DED00CEDFD6 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F1AEE1A5CF84600DAB9CE /* MockService.swift */; };
 		A16FD2C51E061E6800CEDFD6 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13FE4D51DA231F90067F984 /* SwiftyJSON.framework */; };
 		A16FD2C61E061EB900CEDFD6 /* NativeMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A5D3D1D0A7F9100C4BE1F /* NativeMockServer.swift */; };
@@ -38,6 +44,7 @@
 		A1E04EA91A809828006721F8 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E04EA71A809828006721F8 /* Nimble.framework */; };
 		A1F4A2AF1E98A905004EBA78 /* PactSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F941DA2006F00CEBDA4 /* PactSpecs.swift */; };
 		A1F4A2B01E98A920004EBA78 /* AnimalServiceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1291F901DA2006F00CEBDA4 /* AnimalServiceClient.swift */; };
+		A1F4A2B21E9A0B52004EBA78 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F4A2B11E9A0B52004EBA78 /* DictionaryExtensions.swift */; };
 		A1F6BA411D13B365008BC56C /* PactMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17A5D451D1114AC00C4BE1F /* PactMockServer.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,9 +60,13 @@
 
 /* Begin PBXFileReference section */
 		2DC1805032A9858A94273468 /* PactBodyBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactBodyBuilder.swift; sourceTree = "<group>"; };
-		2DC1855727137D1A61E22336 /* Matcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
+		2DC183FC32E22CC87C8DCA2F /* MatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatcherSpec.swift; path = Matchers/MatcherSpec.swift; sourceTree = "<group>"; };
+		2DC18515E80D1A5F72A1F565 /* MatchingRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatchingRule.swift; path = Matchers/MatchingRule.swift; sourceTree = "<group>"; };
 		2DC1894F534D68C7B712D1DF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = README.md; sourceTree = "<group>"; };
 		2DC189C6CB7BB21E0063D70C /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		2DC18A80051BF6B1C88BC3C2 /* TypeMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeMatcher.swift; path = Matchers/TypeMatcher.swift; sourceTree = "<group>"; };
+		2DC18B54DD1A0A6CF3D1CE8F /* TermMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermMatcher.swift; path = Matchers/TermMatcher.swift; sourceTree = "<group>"; };
+		2DC18BD54F0B5C326DB7B5E1 /* Matcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matcher.swift; path = Matchers/Matcher.swift; sourceTree = "<group>"; };
 		2DC18C38A4C55716419A1D8A /* ROADMAP.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ROADMAP.md; sourceTree = "<group>"; };
 		A10AC5AD1A85EFCF00F4524C /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
 		A11F1A6B1A5C890D00DAB9CE /* PactConsumerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PactConsumerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +77,6 @@
 		A11F1AEE1A5CF84600DAB9CE /* MockService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		A11F1AEF1A5CF84600DAB9CE /* Interaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interaction.swift; sourceTree = "<group>"; };
 		A1291F891DA2005F00CEBDA4 /* InteractionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractionSpec.swift; sourceTree = "<group>"; };
-		A1291F8A1DA2005F00CEBDA4 /* MatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatcherSpec.swift; sourceTree = "<group>"; };
 		A1291F8B1DA2005F00CEBDA4 /* PactSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactSpec.swift; sourceTree = "<group>"; };
 		A1291F901DA2006F00CEBDA4 /* AnimalServiceClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalServiceClient.swift; sourceTree = "<group>"; };
 		A1291F911DA2006F00CEBDA4 /* OCAnimalServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAnimalServiceClient.h; sourceTree = "<group>"; };
@@ -84,6 +94,7 @@
 		A1E04EA61A809828006721F8 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		A1E04EA71A809828006721F8 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		A1EE189C1AA00497008B0E8C /* PactConsumerSwiftTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PactConsumerSwiftTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A1F4A2B11E9A0B52004EBA78 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,14 +158,15 @@
 		A11F1A6D1A5C890D00DAB9CE /* PactConsumerSwift */ = {
 			isa = PBXGroup;
 			children = (
+				A152E7171EAC72F2001D6C4A /* Matchers */,
 				A17A5D3F1D0A862F00C4BE1F /* Pact.swift */,
 				A17A5D3D1D0A7F9100C4BE1F /* NativeMockServer.swift */,
 				A11F1AEE1A5CF84600DAB9CE /* MockService.swift */,
 				A11F1AEF1A5CF84600DAB9CE /* Interaction.swift */,
 				A11F1A701A5C890D00DAB9CE /* PactConsumerSwift.h */,
 				A11F1A6E1A5C890D00DAB9CE /* Supporting Files */,
-				2DC1855727137D1A61E22336 /* Matcher.swift */,
 				2DC1805032A9858A94273468 /* PactBodyBuilder.swift */,
+				A1F4A2B11E9A0B52004EBA78 /* DictionaryExtensions.swift */,
 			);
 			path = PactConsumerSwift;
 			sourceTree = "<group>";
@@ -189,8 +201,8 @@
 		A1291F881DA2005F00CEBDA4 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A152E7191EAC76F1001D6C4A /* Matchers */,
 				A1291F891DA2005F00CEBDA4 /* InteractionSpec.swift */,
-				A1291F8A1DA2005F00CEBDA4 /* MatcherSpec.swift */,
 				A1291F8B1DA2005F00CEBDA4 /* PactSpec.swift */,
 				A13FE4D71DA2348C0067F984 /* PactBodyBuilderSpec.swift */,
 			);
@@ -224,6 +236,25 @@
 				A13FE4D51DA231F90067F984 /* SwiftyJSON.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A152E7171EAC72F2001D6C4A /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				2DC18A80051BF6B1C88BC3C2 /* TypeMatcher.swift */,
+				2DC18B54DD1A0A6CF3D1CE8F /* TermMatcher.swift */,
+				2DC18515E80D1A5F72A1F565 /* MatchingRule.swift */,
+				2DC18BD54F0B5C326DB7B5E1 /* Matcher.swift */,
+			);
+			name = Matchers;
+			sourceTree = "<group>";
+		};
+		A152E7191EAC76F1001D6C4A /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				2DC183FC32E22CC87C8DCA2F /* MatcherSpec.swift */,
+			);
+			name = Matchers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,9 +430,13 @@
 				A11F1AF11A5CF84600DAB9CE /* Interaction.swift in Sources */,
 				A17A5D3E1D0A7F9100C4BE1F /* NativeMockServer.swift in Sources */,
 				A11F1AF01A5CF84600DAB9CE /* MockService.swift in Sources */,
-				2DC18CE75C65FEDED5B6B69D /* Matcher.swift in Sources */,
 				A17A5D411D0A862F00C4BE1F /* Pact.swift in Sources */,
 				2DC186FAB9B8047A4CADFCB1 /* PactBodyBuilder.swift in Sources */,
+				A1F4A2B21E9A0B52004EBA78 /* DictionaryExtensions.swift in Sources */,
+				2DC18D0B260222F1EF76CA2C /* Matcher.swift in Sources */,
+				2DC182C5AC46C3F72B314E4F /* MatchingRule.swift in Sources */,
+				2DC181C8AEDCEF42C2FBA3AD /* TypeMatcher.swift in Sources */,
+				2DC1805B6548E97135D07390 /* TermMatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,12 +444,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A152E7181EAC74F8001D6C4A /* MatchingRule.swift in Sources */,
 				A1291F961DA2006F00CEBDA4 /* OCAnimalServiceClient.m in Sources */,
 				A1291F8C1DA2005F00CEBDA4 /* InteractionSpec.swift in Sources */,
 				A1291F8E1DA2005F00CEBDA4 /* PactSpec.swift in Sources */,
-				A16FD2C31E061DE600CEDFD6 /* Matcher.swift in Sources */,
 				A16FD2C61E061EB900CEDFD6 /* NativeMockServer.swift in Sources */,
-				A1291F8D1DA2005F00CEBDA4 /* MatcherSpec.swift in Sources */,
 				A16FD2C41E061DED00CEDFD6 /* MockService.swift in Sources */,
 				2DC1877FEC993462E71C7F52 /* PactBodyBuilder.swift in Sources */,
 				A1F4A2AF1E98A905004EBA78 /* PactSpecs.swift in Sources */,
@@ -422,6 +456,10 @@
 				A16FD2C11E061C8E00CEDFD6 /* Pact.swift in Sources */,
 				A16FD2C21E061DDF00CEDFD6 /* Interaction.swift in Sources */,
 				A1F4A2B01E98A920004EBA78 /* AnimalServiceClient.swift in Sources */,
+				2DC182267E2C70C25F9557B5 /* Matcher.swift in Sources */,
+				2DC18677562E77591FF400AE /* TypeMatcher.swift in Sources */,
+				2DC18E9FC068BB77996046F9 /* TermMatcher.swift in Sources */,
+				2DC18E6AE34CD6D445CBB3FD /* MatcherSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
