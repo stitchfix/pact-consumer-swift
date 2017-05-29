@@ -95,6 +95,7 @@
 		A1E04EA71A809828006721F8 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		A1EE189C1AA00497008B0E8C /* PactConsumerSwiftTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PactConsumerSwiftTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A1F4A2B11E9A0B52004EBA78 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
+		AD0FCC4C1ED6A85300E94B33 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +136,7 @@
 				A1E04EA61A809828006721F8 /* Quick.framework */,
 				A1E04EA71A809828006721F8 /* Nimble.framework */,
 				A1E04E961A80971A006721F8 /* Alamofire.framework */,
+				AD0FCC4C1ED6A85300E94B33 /* .swiftlint.yml */,
 				A1343CE61A64D59E00DCD05E /* script */,
 				A11F1A6D1A5C890D00DAB9CE /* PactConsumerSwift */,
 				A11F1A7A1A5C890E00DAB9CE /* PactConsumerSwiftTests */,
@@ -279,8 +281,9 @@
 				A11F1A671A5C890D00DAB9CE /* Frameworks */,
 				A11F1A681A5C890D00DAB9CE /* Headers */,
 				A11F1A691A5C890D00DAB9CE /* Resources */,
-				A1E04E981A809724006721F8 /* ShellScript */,
 				A10024DF1E17C95F002EC225 /* ShellScript */,
+				A1E04E981A809724006721F8 /* Include Carthage Frameworks */,
+				AD0FCC4B1ED6A78800E94B33 /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -380,7 +383,7 @@
 			shellPath = /bin/sh;
 			shellScript = "PATH=/usr/local/bin:/opt/boxen/homebrew/bin:$PATH\n\n# if which swiftlint >/dev/null; then\n# swiftlint\n#else\n#    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi";
 		};
-		A1E04E981A809724006721F8 /* ShellScript */ = {
+		A1E04E981A809724006721F8 /* Include Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -393,6 +396,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PactMockServer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
+			name = "Include Carthage Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +423,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "PATH=/usr/local/bin:/opt/boxen/homebrew/bin:$PATH\ncarthage copy-frameworks";
+		};
+		AD0FCC4B1ED6A78800E94B33 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

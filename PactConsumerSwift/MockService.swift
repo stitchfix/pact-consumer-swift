@@ -35,12 +35,13 @@ open class MockService: NSObject {
   }
 
   @objc(run:)
-  open func objcRun(_ testFunction: @escaping (_ testComplete: () -> Void) -> Void) -> Void {
+  open func objcRun(_ testFunction: @escaping (_ testComplete: () -> Void) -> Void) {
     self.run(nil, line: nil, timeout: 30, testFunction: testFunction)
   }
 
   @objc(run: withTimeout:)
-  open func objcRun(_ testFunction: @escaping (_ testComplete: () -> Void) -> Void, timeout: TimeInterval) -> Void {
+  open func objcRun(_ testFunction: @escaping (_ testComplete: () -> Void) -> Void,
+                    timeout: TimeInterval) {
     self.run(nil, line: nil, timeout: timeout, testFunction: testFunction)
   }
 
@@ -73,7 +74,6 @@ open class MockService: NSObject {
           "Make sure the testComplete() fuction is called at the end of your test.")
     }
   }
-
 
   func failWithLocation(_ message: String, file: String?, line: UInt?) {
     if let fileName = file, let lineNumber = line {
