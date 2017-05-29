@@ -48,7 +48,7 @@ open class MockService: NSObject {
   open func run(_ file: String? = #file, line: UInt? = #line,
                 timeout: TimeInterval = 30,
                 testFunction: @escaping (_
-                  testComplete: @escaping () -> Void) -> Void) -> Void {
+                testComplete: @escaping () -> Void) -> Void) {
     var complete = false
     pact.withInteractions(interactions)
     mockServer.withPact(pact)
@@ -57,7 +57,10 @@ open class MockService: NSObject {
       if !self.mockServer.matched() {
         print("Actual request did not match expectations. Mismatches: ")
         print(self.mockServer.mismatches() ?? "error returning matches")
-        self.failWithLocation("Actual request did not match expectations. Mismatches: \(self.mockServer.mismatches())", file: file, line: line)
+        self.failWithLocation("Actual request did not match expectations." +
+          " Mismatches: \(String(describing: self.mockServer.mismatches()))",
+          file: file,
+          line: line)
       }
       self.mockServer.writeFile()
       self.mockServer.cleanup()

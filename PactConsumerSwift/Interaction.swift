@@ -8,7 +8,7 @@ public enum PactHTTPMethod: Int {
 @objc
 public class Interaction: NSObject {
   typealias HttpMessage = [String: Any]
-  var providerState: String? = nil
+  var providerState: String?
   var testDescription: String = ""
   var request: HttpMessage = [:]
   var response: HttpMessage = [:]
@@ -28,10 +28,10 @@ public class Interaction: NSObject {
   @objc(withRequestHTTPMethod: path: query: headers: body:)
   @discardableResult
   public func withRequest(_ method: PactHTTPMethod,
-                        path: Any,
-                        query: [String: Any]? = nil,
-                        headers: [String: String]? = nil,
-                        body: Any? = nil) -> Interaction {
+                          path: Any,
+                          query: [String: Any]? = nil,
+                          headers: [String: String]? = nil,
+                          body: Any? = nil) -> Interaction {
     request = ["method": httpMethod(method)]
     request = applyPath(message: request, path: path)
     request = applyValue(message: request, field: "headers", value: headers)
@@ -43,8 +43,8 @@ public class Interaction: NSObject {
   @objc(willRespondWithHTTPStatus: headers: body:)
   @discardableResult
   public func willRespondWith(_ status: Int,
-                            headers: [String: String]? = nil,
-                            body: Any? = nil) -> Interaction {
+                              headers: [String: String]? = nil,
+                              body: Any? = nil) -> Interaction {
     response = ["status": status]
     response = applyValue(message: response, field: "headers", value: headers)
     response = applyBody(message: response, body: body)
@@ -53,7 +53,7 @@ public class Interaction: NSObject {
 
   private func applyValue(message: HttpMessage, field: String, value: Any?) -> HttpMessage {
     if let value = value {
-      return message.merge(dictionary: [field: value]);
+      return message.merge(dictionary: [field: value])
     }
     return message
   }
@@ -72,8 +72,11 @@ public class Interaction: NSObject {
   private func applyBody(message: HttpMessage, body: Any?) -> HttpMessage {
     if let bodyValue = body {
       let pactBody = PactBodyBuilder.init(body: bodyValue).build()
-      return message.merge(dictionary: ["body" : pactBody.body,
-                             "matchingRules" : matchingRules(message: message, matchingRules: pactBody.matchingRules)]);
+      return message.merge(dictionary: [
+          "body": pactBody.body,
+          "matchingRules": matchingRules(message: message, matchingRules: pactBody.matchingRules)
+        ]
+      )
     }
     return message
   }

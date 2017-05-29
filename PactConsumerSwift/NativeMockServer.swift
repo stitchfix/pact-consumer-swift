@@ -6,13 +6,13 @@ open class NativeMockServer {
   open var port: Int32 = -1
   open var pactDir: String
 
-  public init(_ dir: String = "./pacts") {
-    pactDir = dir
+  public init(_ directory: String = "./pacts") {
+    pactDir = directory
     port = randomPort()
   }
 
   func randomPort() -> Int32 {
-    return Int(arc4random_uniform(200)) + 4000
+    return Int32(arc4random_uniform(200) + 4000)
   }
 
   open func withPact(_ pact: Pact) {

@@ -1,6 +1,5 @@
 import SwiftyJSON
 
-
 typealias JSONEntry = [String: Any]
 typealias JSONArray = [Any]
 typealias PathWithMatchingRule = [String: [String: String]]
@@ -64,4 +63,3 @@ struct PactBody {
   var body: Any
   var matchingRules: PathWithMatchingRule
 }
-

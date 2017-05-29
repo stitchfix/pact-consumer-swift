@@ -22,4 +22,3 @@ open class Matcher: NSObject {
     ]
   }
 }
-
