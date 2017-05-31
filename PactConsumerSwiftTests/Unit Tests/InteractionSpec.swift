@@ -41,7 +41,7 @@ class InteractionSpec: QuickSpec {
         let regex = "^\\/resource\\/[0-9]*"
 
         it("returns expected request with specific headers and body") {
-          var payload = interaction!.withRequest(method, path: path, headers: headers, body: body).payload()
+          var payload = interaction!.withRequest(method: method, path: path, headers: headers, body: body).payload()
 
           var request = payload["request"] as! [String: AnyObject]
           expect(request["path"] as! String?) == path
@@ -51,7 +51,7 @@ class InteractionSpec: QuickSpec {
         }
 
         it("returns expected request without body and headers") {
-          var payload = interaction!.withRequest(method, path: path).payload()
+          var payload = interaction!.withRequest(method: method, path: path).payload()
 
           var request = payload["request"] as! [String: AnyObject]
           expect(request["path"] as! String?) == path
@@ -65,7 +65,7 @@ class InteractionSpec: QuickSpec {
           var request : [String: Any]?
 
           beforeEach {
-            interaction!.withRequest(method, path: path, headers: headers, body: body)
+            interaction!.withRequest(method: method, path: path, headers: headers, body: body)
             request = interaction!.payload()["request"] as? [String: Any]
           }
 
@@ -87,7 +87,7 @@ class InteractionSpec: QuickSpec {
           var request : [String: Any]?
 
           beforeEach {
-            interaction!.withRequest(method, path: path, headers: headers, body: body)
+            interaction!.withRequest(method: method, path: path, headers: headers, body: body)
             request = interaction!.payload()["request"] as? [String: Any]
           }
 
@@ -105,7 +105,7 @@ class InteractionSpec: QuickSpec {
             let path = Matcher.term(regex, generate: "/resource/1")
 
             beforeEach {
-              interaction!.withRequest(method, path: path, headers: headers, body: body)
+              interaction!.withRequest(method: method, path: path, headers: headers, body: body)
               request = interaction!.payload()["request"] as? [String: Any]
             }
 
@@ -124,7 +124,7 @@ class InteractionSpec: QuickSpec {
         let body = "body"
 
         it("returns expected response with specific headers and body") {
-          var payload = interaction!.willRespondWith(statusCode, headers: headers, body: body).payload()
+          var payload = interaction!.willRespondWith(status: statusCode, headers: headers, body: body).payload()
 
           var response = payload["response"] as! [String: AnyObject]
           expect(response["status"] as! Int?) == statusCode
@@ -139,7 +139,7 @@ class InteractionSpec: QuickSpec {
           var response : [String: Any]?
 
           beforeEach {
-            interaction!.willRespondWith(statusCode, headers: headers, body: body)
+            interaction!.willRespondWith(status: statusCode, headers: headers, body: body)
             response = interaction!.payload()["response"] as? [String: Any]
           }
 

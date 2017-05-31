@@ -27,7 +27,7 @@ public class Interaction: NSObject {
 
   @objc(withRequestHTTPMethod: path: query: headers: body:)
   @discardableResult
-  public func withRequest(_ method: PactHTTPMethod,
+  public func withRequest(method: PactHTTPMethod,
                           path: Any,
                           query: [String: Any]? = nil,
                           headers: [String: String]? = nil,
@@ -42,7 +42,7 @@ public class Interaction: NSObject {
 
   @objc(willRespondWithHTTPStatus: headers: body:)
   @discardableResult
-  public func willRespondWith(_ status: Int,
+  public func willRespondWith(status: Int,
                               headers: [String: String]? = nil,
                               body: Any? = nil) -> Interaction {
     response = ["status": status]

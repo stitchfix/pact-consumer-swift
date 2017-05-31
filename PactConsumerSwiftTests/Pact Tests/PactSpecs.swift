@@ -17,8 +17,8 @@ class PactSwiftSpec: QuickSpec {
       it("gets an alligator") {
         animalMockService!.given("an alligator exists")
                           .uponReceiving("a request for an alligator")
-                          .withRequest(.GET, path: "/alligators")
-                          .willRespondWith(200,
+                          .withRequest(method: .GET, path: "/alligators")
+                          .willRespondWith(status: 200,
                                            headers: ["Content-Type": "application/json"],
                                            body: [ ["name": "Mary", "type": "alligator"] ])
 
@@ -39,8 +39,8 @@ class PactSwiftSpec: QuickSpec {
 
         animalMockService!.given("an alligator exists")
                 .uponReceiving("a request for an alligator with path matcher")
-                .withRequest(.GET, path: pathMatcher)
-                .willRespondWith(200,
+                .withRequest(method: .GET, path: pathMatcher)
+                .willRespondWith(status: 200,
                   headers: ["Content-Type": "application/json"],
                   body: ["name": "Mary", "type": "alligator"])
 
@@ -57,7 +57,7 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
-      /*
+/*
       describe("With query params") {
 
         it("should return animals living in water") {
@@ -81,6 +81,8 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
+
+*/
       describe("PATCH request") {
         it("should unfriend me") {
           animalMockService!.given("Alligators and pidgeons exist")
@@ -148,15 +150,15 @@ class PactSwiftSpec: QuickSpec {
             })
           }
         }
-      }*/
+      }
       
       describe("Matchers") {
         it("Can match legs based on type") {
           animalMockService!.given("an alligator exists with legs")
             .uponReceiving("a request for alligator with legs")
-            .withRequest(.GET, path: "/alligators/1")
+            .withRequest(method: .GET, path: "/alligators/1")
             .willRespondWith(
-              200,
+              status: 200,
               headers: ["Content-Type": "application/json"],
               body: [
                 "name": "Mary",
@@ -180,9 +182,9 @@ class PactSwiftSpec: QuickSpec {
           let matcher = Matcher.term( "\\d{2}\\/\\d{2}\\/\\d{4}", generate: "02/02/1999")
           animalMockService!.given("an alligator exists with a birthdate")
             .uponReceiving("a request for alligator with birthdate")
-            .withRequest(.GET, path: "/alligators/123")
+            .withRequest(method: .GET, path: "/alligators/123")
             .willRespondWith(
-              200,
+              status: 200,
               headers: ["Content-Type": "application/json"],
               body: [
                 "name": "Mary",

@@ -30,8 +30,8 @@ class PactSpec: QuickSpec {
       context("with interactions") {
         let interaction = Interaction()
         .uponReceiving("a request for an alligator")
-        .withRequest(.GET, path: "/alligator")
-        .willRespondWith(200,
+        .withRequest(method: .GET, path: "/alligator")
+        .willRespondWith(status: 200,
           headers: ["Content-Type": "application/json"],
           body: ["name": "Mary", "type": "alligator"])
 
@@ -49,8 +49,8 @@ class PactSpec: QuickSpec {
         context("response body matcher") {
           let interaction = Interaction()
                   .uponReceiving("a request for an alligator")
-                  .withRequest(.GET, path: "/alligator")
-                  .willRespondWith(200,
+                  .withRequest(method: .GET, path: "/alligator")
+                  .willRespondWith(status: 200,
                                    headers: ["Content-Type": "application/json"],
                                    body: [
                                            "name": "Mary",
