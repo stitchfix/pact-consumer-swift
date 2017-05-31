@@ -47,35 +47,24 @@ open class MockService: NSObject {
 
   open func run(_ file: String? = #file, line: UInt? = #line,
                 timeout: TimeInterval = 30,
-                testFunction: @escaping (_
-                testComplete: @escaping () -> Void) -> Void) {
-    var complete = false
-    pact.withInteractions(interactions)
-    mockServer.withPact(pact)
-    testFunction { () in
-      complete = true
-      if !self.mockServer.matched() {
-        print("Actual request did not match expectations. Mismatches: ")
-        print(self.mockServer.mismatches() ?? "error returning matches")
-        self.failWithLocation("Actual request did not match expectations." +
-          " Mismatches: \(String(describing: self.mockServer.mismatches()))",
-          file: file,
-          line: line)
+                testFunction: @escaping (_ testComplete: @escaping () -> Void) -> Void) {
+    waitUntilWithLocation(timeout: timeout, file: file, line: line) { done in
+      self.pact.withInteractions(self.interactions)
+      self.mockServer.withPact(self.pact)
+      testFunction { () in
+        done()
       }
-      self.mockServer.writeFile()
-      self.mockServer.cleanup()
     }
-    if let fileName = file, let lineNumber = line {
-      expect(fileName, line: lineNumber, expression: { complete }).toEventually(beTrue(),
-        timeout: timeout,
-        description: "Expected requests were never received. " +
-          "Make sure the testComplete() fuction is called at the end of your test.")
+    if !self.mockServer.matched() {
+      self.failWithLocation("Actual request did not match expectations." +
+        " Mismatches: \(String(describing: self.mockServer.mismatches()))",
+        file: file,
+        line: line)
+      print("warning: Make sure the testComplete() fuction is called at the end of your test.")
     } else {
-      expect(complete).toEventually(beTrue(),
-        timeout: timeout,
-        description: "Expected requests were never received. " +
-          "Make sure the testComplete() fuction is called at the end of your test.")
+      self.mockServer.writeFile()
     }
+    self.mockServer.cleanup()
   }
 
   func failWithLocation(_ message: String, file: String?, line: UInt?) {
@@ -83,6 +72,17 @@ open class MockService: NSObject {
       fail(message, file: fileName, line: lineNumber)
     } else {
       fail(message)
+    }
+  }
+
+  public func waitUntilWithLocation(timeout: TimeInterval,
+                                    file: FileString?,
+                                    line: UInt?,
+                                    action: @escaping (@escaping () -> Void) -> Void) {
+    if let fileName = file, let lineNumber = line {
+      return waitUntil(timeout: timeout, file: fileName, line: lineNumber, action: action)
+    } else {
+      return waitUntil(timeout: timeout, action: action)
     }
   }
 }

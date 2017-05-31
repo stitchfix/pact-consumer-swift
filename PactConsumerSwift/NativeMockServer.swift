@@ -1,6 +1,7 @@
 import Foundation
 import PactMockServer
 import Nimble
+import SwiftyJSON
 
 open class NativeMockServer {
   open var port: Int32 = -1
@@ -40,12 +41,22 @@ open class NativeMockServer {
     }
   }
 
-  open func mismatches() -> String? {
+  open func mismatches() -> String {
     let mismatches = PactMockServer.mock_server_mismatches(port)
     if let mismatches = mismatches {
-      return String(cString: mismatches)
+      let json = JSON(parseJSON: String(cString: mismatches))
+      var mismatches = ""
+      for (_, pathMismatch):(String, JSON) in json {
+        mismatches = "\(mismatches)\(pathMismatch["method"]) \(pathMismatch["path"]): "
+        for (_, mismatch):(String, JSON) in pathMismatch["mismatches"] {
+          mismatches = "\(mismatches){error: \(mismatch["mismatch"]), "
+          mismatches = "\(mismatches)expected: \(mismatch["expected"]), "
+          mismatches = "\(mismatches)actual: \(mismatch["actual"])}"
+        }
+      }
+      return mismatches
     } else {
-      return nil
+      return "Nothing received"
     }
   }
 
