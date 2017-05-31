@@ -1,9 +1,12 @@
 # Pact Consumer Swift
 * Core Library build: [![Build Status](https://travis-ci.org/DiUS/pact-consumer-swift.svg)](https://travis-ci.org/DiUS/pact-consumer-swift)
+* Core Library Code coverage: [![codecov](https://codecov.io/gh/DiUS/pact-consumer-swift/branch/master/graph/badge.svg)](https://codecov.io/gh/DiUS/pact-consumer-swift)
 * Swift, Carthage Example build: [![Swift, Carthage Example - Build Status](https://travis-ci.org/andrewspinks/PactSwiftExample.svg?branch=master)](https://travis-ci.org/andrewspinks/PactSwiftExample)
 * ObjeciveC, Git Submodules Example build: [![Build Status](https://travis-ci.org/andrewspinks/PactObjectiveCExample.svg?branch=master)](https://travis-ci.org/andrewspinks/PactObjectiveCExample)
 
 This library provides a Swift / Objective C DSL for creating Consumer [Pacts](http://pact.io).
+
+Why? To test communication boundaries between your app and services. You can view a presentation I gave on how Pact can work in a mobile context here: [Yow Connected Talk](https://www.youtube.com/watch?v=UQkMr4bKYp4)
 
 Implements [Pact Specification v2](https://github.com/pact-foundation/pact-specification/tree/version-2),
 including [flexible matching](http://docs.pact.io/documentation/matching.html).
@@ -14,7 +17,7 @@ This DSL relies on the Ruby [pact-mock_service][pact-mock-service] gem to provid
 Note: see [Upgrading][upgrading] for notes on upgrading from 0.2 to 0.3
 
 ### Install the [pact-mock_service][pact-mock-service]
-  `gem install pact-mock_service -v 0.9.0`
+  `sudo gem install pact-mock_service -v 2.1.0`
 
 ### Add the PactConsumerSwift library to your project
 
@@ -70,7 +73,7 @@ import PactConsumerSwift
 
 ### Testing with Objective-C
   Write a Unit test similar to the following
-  
+
 ```objc
 @import PactConsumerSwift;
 ...
