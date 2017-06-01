@@ -57,7 +57,6 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
-/*
       describe("With query params") {
 
         it("should return animals living in water") {
@@ -81,8 +80,6 @@ class PactSwiftSpec: QuickSpec {
         }
       }
 
-
-*/
       describe("PATCH request") {
         it("should unfriend me") {
           animalMockService!.given("Alligators and pidgeons exist")
@@ -151,7 +148,7 @@ class PactSwiftSpec: QuickSpec {
           }
         }
       }
-      
+
       describe("Matchers") {
         it("Can match legs based on type") {
           animalMockService!.given("an alligator exists with legs")
@@ -191,7 +188,7 @@ class PactSwiftSpec: QuickSpec {
                 "type": "alligator",
                 "dateOfBirth": matcher
               ])
-          
+
           //Run the tests
           animalMockService!.run { (testComplete) -> Void in
             animalServiceClient!.getAlligator(123, success: { (alligator) in
@@ -212,7 +209,7 @@ class PactSwiftSpec: QuickSpec {
                             .uponReceiving("a request for animals living on land")
                             .withRequest(
                               method:.GET,
-                              path: "/animals", 
+                              path: "/animals",
                               query: ["live": "land"])
                             .willRespondWith(
                               status: 200,

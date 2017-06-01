@@ -60,6 +60,27 @@ class InteractionSpec: QuickSpec {
           expect(request["body"] as! String?).to(beNil())
         }
 
+        it("accepts single query param in dictionary") {
+          var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water"]).payload()
+
+          var request = payload["request"] as! [String: AnyObject]
+          expect(request["query"] as! String?) == "live=water"
+        }
+
+        it("accepts multiple query params in dictionary") {
+          var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water", "age": 10]).payload()
+
+          var request = payload["request"] as! [String: AnyObject]
+          expect(request["query"] as! String?) == "live=water&age=10"
+        }
+
+        it("accepts query params as string") {
+          var payload = interaction!.withRequest(method: method, path: path, query: "live=water").payload()
+
+          var request = payload["request"] as! [String: AnyObject]
+          expect(request["query"] as! String?) == "live=water"
+        }
+
         context("with path matcher") {
           let path = Matcher.term(regex, generate: "/resource/1")
           var request : [String: Any]?

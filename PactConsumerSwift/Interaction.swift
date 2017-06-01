@@ -8,6 +8,7 @@ public enum PactHTTPMethod: Int {
 @objc
 public class Interaction: NSObject {
   typealias HttpMessage = [String: Any]
+  typealias QueryParameter = [String: Any]
   var providerState: String?
   var testDescription: String = ""
   var request: HttpMessage = [:]
@@ -29,13 +30,13 @@ public class Interaction: NSObject {
   @discardableResult
   public func withRequest(method: PactHTTPMethod,
                           path: Any,
-                          query: [String: Any]? = nil,
+                          query: Any? = nil,
                           headers: [String: String]? = nil,
                           body: Any? = nil) -> Interaction {
     request = ["method": httpMethod(method)]
     request = applyPath(message: request, path: path)
     request = applyValue(message: request, field: "headers", value: headers)
-    request = applyValue(message: request, field: "query", value: query)
+    request = applyQuery(message: request, query: query)
     request = applyBody(message: request, body: body)
     return self
   }
@@ -67,6 +68,22 @@ public class Interaction: NSObject {
     default:
       return message.merge(dictionary:["path": path])
     }
+  }
+
+  private func applyQuery(message: HttpMessage, query: Any?) -> HttpMessage {
+    if let query = query {
+      switch query {
+      case let queryDictionary as QueryParameter:
+        var queryParams: [String] = []
+        for (key, value) in queryDictionary {
+          queryParams.append("\(key)=\(value)")
+        }
+        return message.merge(dictionary: ["query": queryParams.joined(separator: "&")])
+      default:
+        return message.merge(dictionary:["query": query])
+      }
+    }
+    return message
   }
 
   private func applyBody(message: HttpMessage, body: Any?) -> HttpMessage {
