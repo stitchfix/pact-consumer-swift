@@ -31,7 +31,7 @@ public class Interaction: NSObject {
   public func withRequest(method: PactHTTPMethod,
                           path: Any,
                           query: Any? = nil,
-                          headers: [String: String]? = nil,
+                          headers: [String: Any]? = nil,
                           body: Any? = nil) -> Interaction {
     request = ["method": httpMethod(method)]
     request = applyPath(message: request, path: path)
@@ -44,7 +44,7 @@ public class Interaction: NSObject {
   @objc(willRespondWithHTTPStatus: headers: body:)
   @discardableResult
   public func willRespondWith(status: Int,
-                              headers: [String: String]? = nil,
+                              headers: [String: Any]? = nil,
                               body: Any? = nil) -> Interaction {
     response = ["status": status]
     response = applyValue(message: response, field: "headers", value: headers)
