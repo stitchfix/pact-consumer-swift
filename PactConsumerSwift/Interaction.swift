@@ -72,23 +72,18 @@ public class Interaction: NSObject {
 
   private func applyQuery(message: HttpMessage, query: Any?) -> HttpMessage {
     if let query = query {
-      switch query {
-      case let queryDictionary as QueryParameter:
-        var queryParams: [String] = []
-        for (key, value) in queryDictionary {
-          queryParams.append("\(key)=\(value)")
-        }
-        return message.merge(dictionary: ["query": queryParams.joined(separator: "&")])
-      default:
-        return message.merge(dictionary:["query": query])
-      }
+      let queryBuilder = PactQueryBuilder(query: query).build()
+      return message.merge(dictionary: [
+        "query": queryBuilder.query,
+        "matchingRules": matchingRules(message: message, matchingRules: queryBuilder.matchingRules)
+      ])
     }
     return message
   }
 
   private func applyBody(message: HttpMessage, body: Any?) -> HttpMessage {
     if let bodyValue = body {
-      let pactBody = PactBodyBuilder.init(body: bodyValue).build()
+      let pactBody = PactBodyBuilder(body: bodyValue).build()
       return message.merge(dictionary: [
           "body": pactBody.body,
           "matchingRules": matchingRules(message: message, matchingRules: pactBody.matchingRules)

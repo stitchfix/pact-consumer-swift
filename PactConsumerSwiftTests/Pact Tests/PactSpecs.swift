@@ -99,6 +99,7 @@ class PactSwiftSpec: QuickSpec {
           }
         }
 
+        /*
         it("should return animals living in water using matcher") {
           let queryMatcher = Matcher.term("live=*", generate: "live=water")
 
@@ -120,9 +121,11 @@ class PactSwiftSpec: QuickSpec {
             })
           }
         }
+ */
       }
 
       describe("With Header matches") {
+        /*
         it("gets a secure alligator with auth header matcher") {
           animalMockService!.given("an alligator exists")
                   .uponReceiving("a request for an alligator with header matcher")
@@ -143,7 +146,7 @@ class PactSwiftSpec: QuickSpec {
               }
             )
           }
-        }
+        }*/
       }
 
       describe("PATCH request") {

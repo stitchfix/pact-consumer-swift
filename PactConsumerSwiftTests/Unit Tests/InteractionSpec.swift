@@ -60,25 +60,45 @@ class InteractionSpec: QuickSpec {
           expect(request["body"] as! String?).to(beNil())
         }
 
-        it("accepts single query param in dictionary") {
-          var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water"]).payload()
+        context("with query params") {
+          it("accepts single query param in dictionary") {
+            var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water"]).payload()
 
-          var request = payload["request"] as! [String: AnyObject]
-          expect(request["query"] as! String?) == "live=water"
-        }
+            var request = payload["request"] as! [String: AnyObject]
+            expect(request["query"] as! String?) == "live=water"
+          }
 
-        it("accepts multiple query params in dictionary") {
-          var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water", "age": 10]).payload()
+          it("accepts multiple query params in dictionary") {
+            var payload = interaction!.withRequest(method: method, path: path, query: ["live": "water", "age": 10]).payload()
 
-          var request = payload["request"] as! [String: AnyObject]
-          expect(request["query"] as! String?) == "live=water&age=10"
-        }
+            var request = payload["request"] as! [String: AnyObject]
+            expect(request["query"] as! String?) == "age=10&live=water"
+          }
 
-        it("accepts query params as string") {
-          var payload = interaction!.withRequest(method: method, path: path, query: "live=water").payload()
+          it("accepts query params as string") {
+            var payload = interaction!.withRequest(method: method, path: path, query: "live=water").payload()
 
-          var request = payload["request"] as! [String: AnyObject]
-          expect(request["query"] as! String?) == "live=water"
+            var request = payload["request"] as! [String: AnyObject]
+            expect(request["query"] as! String?) == "live=water"
+          }
+
+          context("with matchers") {
+            var request : [String: Any]?
+
+            beforeEach {
+              interaction!.withRequest(method: method, path: path, query: ["live": Matcher.somethingLike("water")])
+              request = interaction!.payload()["request"] as? [String: Any]
+            }
+
+            it("accepts query parameter with a matcher") {
+              expect(request!["query"] as! String?) == "live=water"
+            }
+
+            it("builds matching rules") {
+              let matchingRules = JSON(request!["matchingRules"]!)
+              expect(matchingRules).to(equal(["$.query.live[0]": ["match": "type"]]))
+            }
+          }
         }
 
         context("with path matcher") {
