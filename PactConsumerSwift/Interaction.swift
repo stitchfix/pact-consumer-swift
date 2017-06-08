@@ -35,7 +35,7 @@ public class Interaction: NSObject {
                           body: Any? = nil) -> Interaction {
     request = ["method": httpMethod(method)]
     request = applyPath(message: request, path: path)
-    request = applyValue(message: request, field: "headers", value: headers)
+    request = applyHeaders(message: request, headers: headers)
     request = applyQuery(message: request, query: query)
     request = applyBody(message: request, body: body)
     return self
@@ -47,14 +47,18 @@ public class Interaction: NSObject {
                               headers: [String: Any]? = nil,
                               body: Any? = nil) -> Interaction {
     response = ["status": status]
-    response = applyValue(message: response, field: "headers", value: headers)
+    response = applyHeaders(message: response, headers: headers)
     response = applyBody(message: response, body: body)
     return self
   }
 
-  private func applyValue(message: HttpMessage, field: String, value: Any?) -> HttpMessage {
-    if let value = value {
-      return message.merge(dictionary: [field: value])
+  private func applyHeaders(message: HttpMessage, headers: [String: Any]?) -> HttpMessage {
+    if let headers = headers {
+      let headerBuilder = PactHeaderBuilder(headers: headers).build()
+      return message.merge(dictionary: [
+        "headers": headerBuilder.headers,
+        "matchingRules": matchingRules(message: message, matchingRules: headerBuilder.matchingRules)
+      ])
     }
     return message
   }

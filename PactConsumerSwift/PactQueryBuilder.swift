@@ -37,7 +37,7 @@ class PactQueryBuilder {
         queryParams.append("\(key)=\(string)")
       case let matcher as MatchingRule:
         queryParams.append("\(key)=\(matcher.value())")
-        matchingRule["$.query.\(key)[0]"] = matcher.rule()
+        matchingRule["\(path).\(key)[0]"] = matcher.rule()
       default:
         queryParams.append("\(key)=\(value)")
       }

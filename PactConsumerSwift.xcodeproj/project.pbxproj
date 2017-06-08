@@ -29,6 +29,9 @@
 		A12D953D1EE7CA1300BD4BC4 /* PactQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D953C1EE7CA1300BD4BC4 /* PactQueryBuilder.swift */; };
 		A12D953F1EE7CA4500BD4BC4 /* PactQueryBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D953E1EE7CA4500BD4BC4 /* PactQueryBuilderSpec.swift */; };
 		A12D95401EE7D00500BD4BC4 /* PactQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D953C1EE7CA1300BD4BC4 /* PactQueryBuilder.swift */; };
+		A12D95421EE8EBBA00BD4BC4 /* PactHeaderBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D95411EE8EBBA00BD4BC4 /* PactHeaderBuilderSpec.swift */; };
+		A12D95441EE8EBC400BD4BC4 /* PactHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D95431EE8EBC400BD4BC4 /* PactHeaderBuilder.swift */; };
+		A12D95451EE8EBCA00BD4BC4 /* PactHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D95431EE8EBC400BD4BC4 /* PactHeaderBuilder.swift */; };
 		A13FE4D61DA231F90067F984 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13FE4D51DA231F90067F984 /* SwiftyJSON.framework */; };
 		A13FE4D81DA2348C0067F984 /* PactBodyBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FE4D71DA2348C0067F984 /* PactBodyBuilderSpec.swift */; };
 		A152E7181EAC74F8001D6C4A /* MatchingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC18515E80D1A5F72A1F565 /* MatchingRule.swift */; };
@@ -88,6 +91,8 @@
 		A1291F941DA2006F00CEBDA4 /* PactSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactSpecs.swift; sourceTree = "<group>"; };
 		A12D953C1EE7CA1300BD4BC4 /* PactQueryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactQueryBuilder.swift; sourceTree = "<group>"; };
 		A12D953E1EE7CA4500BD4BC4 /* PactQueryBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactQueryBuilderSpec.swift; sourceTree = "<group>"; };
+		A12D95411EE8EBBA00BD4BC4 /* PactHeaderBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactHeaderBuilderSpec.swift; sourceTree = "<group>"; };
+		A12D95431EE8EBC400BD4BC4 /* PactHeaderBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PactHeaderBuilder.swift; sourceTree = "<group>"; };
 		A1343CEB1A64D59E00DCD05E /* start_server.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = start_server.sh; sourceTree = "<group>"; };
 		A1343CEC1A64D59E00DCD05E /* stop_server.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = stop_server.sh; sourceTree = "<group>"; };
 		A13FE4D51DA231F90067F984 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
@@ -165,6 +170,7 @@
 		A11F1A6D1A5C890D00DAB9CE /* PactConsumerSwift */ = {
 			isa = PBXGroup;
 			children = (
+				A12D95431EE8EBC400BD4BC4 /* PactHeaderBuilder.swift */,
 				A1F4A2B11E9A0B52004EBA78 /* DictionaryExtensions.swift */,
 				A11F1AEF1A5CF84600DAB9CE /* Interaction.swift */,
 				A152E7171EAC72F2001D6C4A /* Matchers */,
@@ -209,6 +215,7 @@
 		A1291F881DA2005F00CEBDA4 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A12D95411EE8EBBA00BD4BC4 /* PactHeaderBuilderSpec.swift */,
 				A152E7191EAC76F1001D6C4A /* Matchers */,
 				A1291F891DA2005F00CEBDA4 /* InteractionSpec.swift */,
 				A1291F8B1DA2005F00CEBDA4 /* PactSpec.swift */,
@@ -454,6 +461,7 @@
 			files = (
 				A11F1AF11A5CF84600DAB9CE /* Interaction.swift in Sources */,
 				A17A5D3E1D0A7F9100C4BE1F /* NativeMockServer.swift in Sources */,
+				A12D95441EE8EBC400BD4BC4 /* PactHeaderBuilder.swift in Sources */,
 				A11F1AF01A5CF84600DAB9CE /* MockService.swift in Sources */,
 				A17A5D411D0A862F00C4BE1F /* Pact.swift in Sources */,
 				2DC186FAB9B8047A4CADFCB1 /* PactBodyBuilder.swift in Sources */,
@@ -480,9 +488,11 @@
 				A1F4A2AF1E98A905004EBA78 /* PactSpecs.swift in Sources */,
 				A13FE4D81DA2348C0067F984 /* PactBodyBuilderSpec.swift in Sources */,
 				A16FD2C11E061C8E00CEDFD6 /* Pact.swift in Sources */,
+				A12D95421EE8EBBA00BD4BC4 /* PactHeaderBuilderSpec.swift in Sources */,
 				A16FD2C21E061DDF00CEDFD6 /* Interaction.swift in Sources */,
 				A1F4A2B01E98A920004EBA78 /* AnimalServiceClient.swift in Sources */,
 				A12D95401EE7D00500BD4BC4 /* PactQueryBuilder.swift in Sources */,
+				A12D95451EE8EBCA00BD4BC4 /* PactHeaderBuilder.swift in Sources */,
 				2DC182267E2C70C25F9557B5 /* Matcher.swift in Sources */,
 				2DC18677562E77591FF400AE /* TypeMatcher.swift in Sources */,
 				2DC18E9FC068BB77996046F9 /* TermMatcher.swift in Sources */,

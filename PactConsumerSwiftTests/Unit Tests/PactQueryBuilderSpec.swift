@@ -19,7 +19,7 @@ class PactQueryBuilderSpec: QuickSpec {
           expect(matchingRules).to(equal([:]))
         }
 
-        it("builds json body") {
+        it("builds query") {
           let query = JSON(pactQuery.query)
 
           expect(query).to(equal("name=Mary&type=alligator"))
@@ -28,7 +28,7 @@ class PactQueryBuilderSpec: QuickSpec {
 
       context("matching rules") {
         let pactQuery = PactQueryBuilder(query: [
-          "name": Matcher.somethingLike("Mary"),
+          "name": Matcher.somethingLike(3),
           "type": Matcher.somethingLike("alligator")]
           ).build()
 
@@ -38,10 +38,10 @@ class PactQueryBuilderSpec: QuickSpec {
           expect(matchingRules).to(equal(["$.query.name[0]": ["match": "type"], "$.query.type[0]": ["match": "type"]]))
         }
 
-        it("builds json body") {
+        it("builds query") {
           let query = JSON(pactQuery.query)
 
-          expect(query).to(equal("name=Mary&type=alligator"))
+          expect(query).to(equal("name=3&type=alligator"))
         }
       }
     }
@@ -55,7 +55,24 @@ class PactQueryBuilderSpec: QuickSpec {
         expect(matchingRules).to(equal([:]))
       }
 
-      it("builds json body") {
+      it("builds query") {
+        let query = JSON(pactQuery.query)
+
+        expect(query).to(equal("live=water"))
+      }
+    }
+
+    context("matcher based query") {
+      let matcher = Matcher.term("live=*", generate: "live=water")
+      let pactQuery = PactQueryBuilder(query: matcher).build()
+
+      it("builds matching rules") {
+        let matchingRules = JSON(pactQuery.matchingRules)
+
+        expect(matchingRules).to(equal(["$.query": ["match": "regex", "regex": "live=*"]]))
+      }
+
+      it("builds query") {
         let query = JSON(pactQuery.query)
 
         expect(query).to(equal("live=water"))

@@ -99,7 +99,7 @@ class PactSwiftSpec: QuickSpec {
           }
         }
 
-        /*
+        /* NOT SURE WHY THIS DOESNT WORK - upgrade mock server?
         it("should return animals living in water using matcher") {
           let queryMatcher = Matcher.term("live=*", generate: "live=water")
 
@@ -120,12 +120,10 @@ class PactSwiftSpec: QuickSpec {
               testComplete()
             })
           }
-        }
- */
+        }*/
       }
 
       describe("With Header matches") {
-        /*
         it("gets a secure alligator with auth header matcher") {
           animalMockService!.given("an alligator exists")
                   .uponReceiving("a request for an alligator with header matcher")
@@ -146,7 +144,7 @@ class PactSwiftSpec: QuickSpec {
               }
             )
           }
-        }*/
+        }
       }
 
       describe("PATCH request") {

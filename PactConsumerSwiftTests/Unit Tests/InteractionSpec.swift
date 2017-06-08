@@ -101,6 +101,26 @@ class InteractionSpec: QuickSpec {
           }
         }
 
+        context("with header matcher") {
+          let headers = ["Authorization": Matcher.somethingLike("somekey")]
+          var request : [String: Any]?
+
+          beforeEach {
+            interaction!.withRequest(method: method, path: path, headers: headers, body: body)
+            request = interaction!.payload()["request"] as? [String: Any]
+          }
+
+          it("builds matching rules") {
+            let matchingRules = JSON(request!["matchingRules"]!)
+            expect(matchingRules).to(equal(["$.headers.Authorization": ["match": "type"]]))
+          }
+
+          it("adds default value to headers") {
+            let headers = JSON(request!["headers"]!)
+            expect(headers).to(equal(["Authorization": "somekey"]))
+          }
+        }
+
         context("with path matcher") {
           let path = Matcher.term(regex, generate: "/resource/1")
           var request : [String: Any]?
@@ -163,21 +183,21 @@ class InteractionSpec: QuickSpec {
         let statusCode = 200
         let headers = ["header": "value"]
         let body = "body"
+        var response : [String: Any]?
 
         it("returns expected response with specific headers and body") {
           var payload = interaction!.willRespondWith(status: statusCode, headers: headers, body: body).payload()
 
-          var response = payload["response"] as! [String: AnyObject]
-          expect(response["status"] as! Int?) == statusCode
-          expect(response["headers"] as! [String: String]?).to(equal(headers))
-          expect(response["body"] as! String?).to(equal(body))
+          response = payload["response"] as! [String: AnyObject]
+          expect(response!["status"] as! Int?) == statusCode
+          expect(response!["headers"] as! [String: String]?).to(equal(headers))
+          expect(response!["body"] as! String?).to(equal(body))
         }
 
         context("body with matcher") {
           let body  = [
             "type": "alligator",
             "legs": Matcher.somethingLike(4)] as [String : Any]
-          var response : [String: Any]?
 
           beforeEach {
             interaction!.willRespondWith(status: statusCode, headers: headers, body: body)
@@ -192,6 +212,25 @@ class InteractionSpec: QuickSpec {
           it("adds default value to body") {
             let generatedBody = JSON(response!["body"]!)
             expect(generatedBody).to(equal(["type": "alligator", "legs": 4]))
+          }
+        }
+
+        context("with header matcher") {
+          let headers = ["Authorization": Matcher.somethingLike("somekey")]
+
+          beforeEach {
+            interaction!.willRespondWith(status: statusCode, headers: headers, body: body)
+            response = interaction!.payload()["response"] as? [String: Any]
+          }
+
+          it("builds matching rules") {
+            let matchingRules = JSON(response!["matchingRules"]!)
+            expect(matchingRules).to(equal(["$.headers.Authorization": ["match": "type"]]))
+          }
+
+          it("adds default value to headers") {
+            let headers = JSON(response!["headers"]!)
+            expect(headers).to(equal(["Authorization": "somekey"]))
           }
         }
       }

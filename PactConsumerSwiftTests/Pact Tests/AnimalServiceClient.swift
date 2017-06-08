@@ -95,6 +95,26 @@ open class AnimalServiceClient {
     }
   }
 
+  open func findAnimals(living: [String], response: @escaping ([Animal]) -> Void) {
+    Alamofire.request("\(baseUrl)/animals", parameters: [ "live": living])
+      .responseJSON {
+        (result) in
+        if result.result.isSuccess {
+          if let jsonResult = result.result.value as? Array<Dictionary<String, AnyObject>> {
+            var alligators : [Animal] = []
+            for alligator in jsonResult {
+              alligators.append(Animal(
+                name: alligator["name"] as! String,
+                type: alligator["type"] as! String,
+                dob: alligator["dateOfBirth"] as? String,
+                legs: alligator["legs"] as? Int))
+            }
+            response(alligators)
+          }
+        }
+    }
+  }
+
   open func eat(animal: String, success: @escaping () -> Void, error: @escaping (Int) -> Void) {
     Alamofire.request("\(baseUrl)/alligator/eat", method: .patch, parameters: [ "type" : animal ], encoding: JSONEncoding.default)
     .responseString { (response) in
